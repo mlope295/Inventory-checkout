@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Inventory Checkout</title>
+</head>
+<body>
+  <h2>Item Checkout Form</h2>
+  <form id="checkoutForm">
+    <label>Item ID:</label><br>
+    <input type="text" id="itemID" required><br><br>
+
+    <label>Employee ID:</label><br>
+    <input type="text" id="employeeID" required><br><br>
+
+    <label>Action:</label><br>
+    <select id="action">
+      <option value="Check Out">Check Out</option>
+      <option value="Check In">Check In</option>
+    </select><br><br>
+
+    <label>Quantity:</label><br>
+    <input type="number" id="quantity" min="1" value="1"><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const scriptURL = 'YOUR_WEB_APP_URL'; // Replace this with your Google Apps Script URL
+
+    document.getElementById('checkoutForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const data = {
+        itemID: document.getElementById('itemID').value,
+        employeeID: document.getElementById('employeeID').value,
+        action: document.getElementById('action').value,
+        quantity: document.getElementById('quantity').value
+      };
+
+      fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+      }).then(response => {
+        alert('Data submitted!');
+        document.getElementById('checkoutForm').reset();
+      });
+    });
+  </script>
+</body>
+</html>
